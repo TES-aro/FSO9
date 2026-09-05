@@ -1,4 +1,12 @@
-type Gender = "male" | "female" | "other";
+import { isNull, isObject, isString } from './typeUtils.ts';
+
+export const Gender = {
+  Male: 'male',
+  Female: 'female',
+  Other: 'other'
+} as const;
+
+export type Gender = typeof Gender[keyof typeof Gender];
 
 export interface Patient {
   id: string,
@@ -9,54 +17,47 @@ export interface Patient {
   occupation: string
 }
 
-const patientKeys = ["id", "name", "ssn", "dateOfBirth", "gender", "occupation"];
+export type NonSensitivePatient = Omit<Patient, "ssn">;
 
-const isPatient = (obj: any) => {
+
+const isGender = (val: unknown): val is Gender => {
+  if (!isString(val)){return false;}
+  return (Object.values(Gender) as string[]).includes(val);
+};
+
+const patientKeys = ["id", "name", "dateOfBirth", "ssn", "gender", "occupation"];
+
+const isPatient = (obj: unknown): obj is Patient => {
+  if (isNull(obj) || !isObject(obj)){ return false;}
   const keys = Object.keys(obj);
-  for (const key of patientKeys){
-    if(!keys.includes(key)){
-      return false;
-    }
-    if(key === "gender"){
-      if(!/(male)|(female)|(other)/.test(obj.gender)) {
-        return false;
-      }
-    } else {
-      if (typeof obj.key !== "string"){
-        return false;
-      }
-    }
+  if (keys.length != patientKeys.length){
+    return false;
   }
-  
+  for (const key of patientKeys){
+    if (!(key in obj)){ return false; }
+    const val = (obj as Record<string, unknown>)[key];
+    if (!isString(val) && !isGender(val)){ return false; } 
+  }
   return true;
 };
-const toPatient = (obj: any): Patient => {
-  const patient = {...obj};
-  const objKeys = Object.keys(obj);
-  if (objKeys.length !== patientKeys.length){
-    const strangeKeys = objKeys.filter(key => {
-      return !patientKeys.includes(key);
-    });
-    for (const key of strangeKeys){
-      delete patient[key];
+
+const isNonSensitivePatient = (obj: unknown): obj is NonSensitivePatient => {
+  if(hasId(obj) || !isObject(obj)){
+    return false;
+  }
+  return isPatient( {...obj, ssn: "lorem ipusm"} );
+};
+
+const hasId = (obj: unknown): obj is { id: string } =>  {
+  
+  if(isObject(obj) && !isNull(obj) && 'id' in obj){
+    const id = obj.id;
+    if (typeof id === 'string' || id instanceof String){
+      return true;
     }
   }
-  return patient;
+  return false;
 };
 
-export type SensoredPatient = Omit<Patient, "ssn">;
 
-const sensorPatient = (p: Patient): SensoredPatient => {
-  console.log("in here");
-  const sensoredP = {
-  id: p.id,
-  name: p.name,
-  dateOfBirth: p.dateOfBirth,
-  gender: p.gender,
-  occupation: p.occupation
-  };
-  console.log(p);
-  console.log(sensoredP);
-  return sensoredP;
-};
-export default {isPatient, toPatient, sensorPatient};
+export default { isGender, isPatient, isNonSensitivePatient };

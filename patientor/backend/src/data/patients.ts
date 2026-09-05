@@ -1,7 +1,6 @@
-import p, {type Patient, type SensoredPatient} from "../types/Patient.ts";
-import { v1 as uuid } from 'uuid';
+import type { Patient } from '../types/Patient.ts';
 
-let data: Patient[] = [
+const data: Patient[] = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
         "name": "John McClane",
@@ -44,19 +43,4 @@ let data: Patient[] = [
     }
 ];
 
-export const addPatient = (input: Partial<Patient>): SensoredPatient | undefined => {
-    input.id = uuid();
-    if (p.isPatient(input)){
-        const patient = p.toPatient(input);
-        data = data.concat(patient);
-        return {
-            id: patient.id,
-            name: patient.name,
-            dateOfBirth: patient.dateOfBirth,
-            gender: patient.gender,
-            occupation: patient.occupation
-        };
-    }
-    return;
-};
 export default data;

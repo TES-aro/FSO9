@@ -5,6 +5,8 @@ import patientRouter from './controllers/patient';
 const PORT = 3003;
 const app = express();
 
+app.use(express.json());
+
 app.get("/api/ping", (_req, res) => {
   res.json({message: "hi"});
 });
