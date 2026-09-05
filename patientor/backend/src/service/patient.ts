@@ -1,22 +1,21 @@
 import { type Patient, type NonSensitivePatient } from '../types/Patient.ts';
 import p from '../types/Patient.ts';
-import {v1 as uuid} from 'uuid';
+import { v1 as uuid } from 'uuid';
 import patientData from '../data/patients.ts';
 import { isObject } from '../types/typeUtils.ts';
-
 
 const get = (): Patient[] => {
   return patientData;
 };
 
 const getNonSensitive = (): NonSensitivePatient[] => {
-  return patientData.map(p =>{
+  return patientData.map(p => {
     return {
-     id:p.id,
-     name: p.name,
-     dateOfBirth: p.dateOfBirth,
-     gender: p.gender,
-     occupation: p.occupation
+      id:p.id,
+      name: p.name,
+      dateOfBirth: p.dateOfBirth,
+      gender: p.gender,
+      occupation: p.occupation
     };
   });
 };

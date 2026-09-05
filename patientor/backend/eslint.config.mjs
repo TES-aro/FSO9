@@ -30,6 +30,13 @@ export default tseslint.config({
       'error',
       { argsIgnorePattern: '^_' },
     ],
+    indent: ['error', 2],
+    quotes: ['error', 'single', { 'avoidEscape': true }],
+		eqeqeq: 'error',
+		'no-trailing-spaces': 'error',
+		'object-curly-spacing': ['error', 'always'],
+		'arrow-spacing': ['error', { before: true, after: true }],
+		'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 0 }],
   },
 });
 

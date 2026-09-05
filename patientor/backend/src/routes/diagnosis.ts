@@ -3,7 +3,7 @@ import service from '../service/diagnosis.ts';
 
 const route = express.Router();
 
-route.get("/", (_req, res) => {
+route.get('/', (_req, res) => {
   try{
     res.json(service.get());
   } catch {

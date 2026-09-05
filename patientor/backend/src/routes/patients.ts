@@ -3,7 +3,7 @@ import patients from '../service/patient.ts';
 
 const route = express.Router();
 
-route.get("/", (_req, res) => {
+route.get('/', (_req, res) => {
   try{
     res.json(patients.getNonSensitive());
   } catch {
@@ -16,7 +16,7 @@ route.put('/', (req, res) => {
     const patient = patients.add(req.body);
     res.json(patient);
   } catch (e) {
-    let message = "something went wrong";
+    let message = 'something went wrong';
     if (e instanceof Error && e.message) {
       message += `: ${e.message}`;
     }

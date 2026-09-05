@@ -4,4 +4,4 @@ const get = () => {
   return diganosisData;
 };
 
-export default {get};
+export default { get };
