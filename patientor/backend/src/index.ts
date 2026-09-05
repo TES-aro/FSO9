@@ -1,6 +1,6 @@
 import express from 'express';
-import diagnosisRouter from './controllers/diagnosis';
-import patientRouter from './controllers/patient';
+import diagnosisRouter from './routes/diagnosis.ts';
+import patientRouter from './routes/patients.ts';
 
 const PORT = 3003;
 const app = express();

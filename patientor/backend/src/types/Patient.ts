@@ -59,5 +59,4 @@ const hasId = (obj: unknown): obj is { id: string } =>  {
   return false;
 };
 
-
-export default { isGender, isPatient, isNonSensitivePatient };
+export default { isGender, isPatient, isNonSensitivePatient, patientKeys };
