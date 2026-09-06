@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "license": "Unlicense",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "node --experimental-transform-types src/index.ts",
+    "start": "node index.ts",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"

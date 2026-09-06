@@ -11,16 +11,16 @@ route.get('/', (_req, res) => {
 });
 
 route.post('/', mw.patientParser, (req: Request<unknown, unknown, NewPatient>, res) => {
-  try {
-    const patient = patients.add(req.body);
-    res.json(patient);
-  } catch (e) {
-    let message = 'something went wrong';
-    if (e instanceof Error && e.message) {
-      message += `: ${e.message}`;
-    }
-    res.status(400).send(message);
-  }
+  // try {
+  const patient = patients.add(req.body);
+  res.json(patient);
+  // } catch (e) {
+  //   let message = 'something went wrong';
+  //   if (e instanceof Error && e.message) {
+  //     message += `: ${e.message}`;
+  //   }
+  //   res.status(400).send(message);
+  // }
 });
 
 export default route;

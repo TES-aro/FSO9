@@ -1,6 +1,7 @@
 import diganosisData from '../data/diagnoses.ts';
+import type Diagnosis from '../types/Diagnosis.ts';
 
-const get = () => {
+const get = (): Diagnosis[] => {
   return diganosisData;
 };
 
