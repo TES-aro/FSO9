@@ -1,17 +1,16 @@
-import express from 'express';
+import express, { type Request } from 'express';
 import patients from '../service/patient.ts';
+import { type NewPatient } from '../service/patient.ts';
+import mw from '../middleware.ts';
 
 const route = express.Router();
 
 route.get('/', (_req, res) => {
-  try{
-    res.json(patients.getNonSensitive());
-  } catch {
-    res.status(500);
-  }
+  console.log('in here');
+  res.json(patients.getNonSensitive());
 });
 
-route.put('/', (req, res) => {
+route.post('/', mw.patientParser, (req: Request<unknown, unknown, NewPatient>, res) => {
   try {
     const patient = patients.add(req.body);
     res.json(patient);
