@@ -1,6 +1,6 @@
-import {type DiaryEntry} from '../types.ts';
+import { type DiaryEntry } from '../types.ts';
 
-const Entry = (entry: DiaryEntry) => {
+const Entry = ({ entry }: {entry: DiaryEntry}) => {
   if (entry.comment){
     return(
       <li key={entry.id}>
@@ -14,7 +14,7 @@ const Entry = (entry: DiaryEntry) => {
   return (
     <li key={entry.id}>
       {entry.date} <br/>
-      Weather: {entry.weather} Visibility: {entry.visibility} 
+      Weather: {entry.weather} Visibility: {entry.visibility}
     </li>
   )
 }
